@@ -1,0 +1,22 @@
+{
+  "name": "musicalkey",
+  "version": "0.0.1",
+  "description": "MusicalKey is cross-platform audio metadata software for DJs.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mithusingh32/musicalkey.git"
+  },
+  "scripts": {
+    "install": "cmake-js compile",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sukhmeet Khalar",
+  "license": "ISC",
+  "dependencies": {
+    "node-addon-api": "^3.1.0"
+  },
+  "devDependencies": {
+    "cmake-js": "^6.1.0"
+  }
+}
