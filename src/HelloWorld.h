@@ -8,6 +8,7 @@ namespace HelloWorld
 {
 
     std::string returnHelloWorld();
+    Napi::Value getAudioData(const Napi::CallbackInfo &info);
 
     // Wrapper
     Napi::String helloWorldWrapped(const Napi::CallbackInfo &info);

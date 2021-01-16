@@ -28,8 +28,6 @@ find_library(
         )
         
 find_library(ws2_32_LIBRARY_PATH ws2_32)
-# find_library(wsock32_LIBRARY_PATH wsock32)
-        
         
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
@@ -40,7 +38,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 # you should add this line in every CMake.js based project.
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
 target_link_libraries(${PROJECT_NAME} ws2_32)
-# target_link_libraries(${PROJECT_NAME} ${wsock32_LIBRARY_PATH})
 target_link_libraries(${PROJECT_NAME} ${SUPERPOWERED})
 
 # Include N-API wrappers
