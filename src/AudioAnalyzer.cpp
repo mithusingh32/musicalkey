@@ -31,7 +31,8 @@ namespace AudioAnalyzer
     // Do the stuff here
     void AudioAnalyzer::Execute()
     {
-        std::string inFile = "C:\\Users\\mithu\\source\\repos\\musicalkey\\src\\test1.mp3";
+        // std::string inFile = "C:\\Users\\mithu\\source\\repos\\musicalkey\\src\\test1.mp3";
+        std::string inFile = "/home/sukhmeetkhalar/Downloads/test.mp3";
 
         Superpowered::Decoder *decoder = new Superpowered::Decoder();
 

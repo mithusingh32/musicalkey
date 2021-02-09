@@ -6,9 +6,9 @@
 
 namespace HelloWorld
 {
-    std::string HelloWorld::returnHelloWorld() { return "Hello World"; }
+    std::string returnHelloWorld() { return "Hello World"; }
 
-    Napi::Value HelloWorld::getAudioData(const Napi::CallbackInfo &info)
+    Napi::Value getAudioData(const Napi::CallbackInfo &info)
     {
         Napi::Function callback = info[0].As<Napi::Function>();
         AudioAnalyzer::AudioAnalyzer* test = new AudioAnalyzer::AudioAnalyzer(callback);
@@ -16,7 +16,7 @@ namespace HelloWorld
         return Napi::String::New(info.Env(),"Test");
     }
 
-    Napi::Object HelloWorld::Init(Napi::Env env, Napi::Object exports)
+    Napi::Object Init(Napi::Env env, Napi::Object exports)
     {
         exports.Set(
             Napi::String::New(env, "getData"),

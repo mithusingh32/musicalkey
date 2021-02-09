@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Don't add this line if you will try_compile with boost.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-SET(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
+
 
 # Essential include files to build a node addon,
 # you should add this line in every CMake.js based project.     
@@ -17,17 +17,36 @@ include_directories(${CMAKE_SOURCE_DIR}/superpowered/Superpowered/)
 # Declare the location of the source files
 file(GLOB SOURCE_FILES "src/*.cpp" "src/*.h")
 
+set(CMAKE_FIND_DEBUG_MODE true)
+
 # This line will tell CMake that we're building a shared library
 # from the above source files
 # named after the project's name
-find_library(
+
+# Windows Libraries
+if (WIN32)
+    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
+    find_library(
+            SUPERPOWERED
+            NAMES "SuperpoweredWin142_Release_MD_x64"
+            PATHS ${CMAKE_SOURCE_DIR}/superpowered/Superpowered/libWindows
+            REQUIRED
+            )
+            find_library(ws2_32_LIBRARY_PATH ws2_32)
+            target_link_libraries(${PROJECT_NAME} ws2_32)
+endif (WIN32)
+
+# Linux Libraries
+if (UNIX)
+    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+    find_library(
         SUPERPOWERED
-        NAMES "SuperpoweredWin142_Release_MD_x64"
-        PATHS ${CMAKE_SOURCE_DIR}/superpowered/Superpowered/libWindows
+        NAMES "SuperpoweredLinuxX86_64"
+        PATHS ${CMAKE_SOURCE_DIR}/superpowered/Superpowered
         REQUIRED
-        )
+    )
+endif (UNIX)
         
-find_library(ws2_32_LIBRARY_PATH ws2_32)
         
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
@@ -37,7 +56,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 # Essential library files to link to a node addon,
 # you should add this line in every CMake.js based project.
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
-target_link_libraries(${PROJECT_NAME} ws2_32)
 target_link_libraries(${PROJECT_NAME} ${SUPERPOWERED})
 
 # Include N-API wrappers
