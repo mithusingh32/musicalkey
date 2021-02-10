@@ -17,6 +17,7 @@ include_directories(${CMAKE_SOURCE_DIR}/superpowered/Superpowered/)
 # Declare the location of the source files
 file(GLOB SOURCE_FILES "src/*.cpp" "src/*.h")
 
+# Disable in production
 set(CMAKE_FIND_DEBUG_MODE true)
 
 # This line will tell CMake that we're building a shared library
@@ -71,3 +72,5 @@ string(REPLACE "\n" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${NODE_ADDON_API_DIR})
 add_definitions(-DNAPI_VERSION=3)
+
+message(OUTPUT_VARIABLE)
