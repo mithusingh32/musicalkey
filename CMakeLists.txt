@@ -32,8 +32,8 @@ if (WIN32)
             PATHS ${CMAKE_SOURCE_DIR}/superpowered/Superpowered/libWindows
             REQUIRED
             )
-            find_library(ws2_32_LIBRARY_PATH ws2_32)
-            target_link_libraries(${PROJECT_NAME} ws2_32)
+            SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
+            
 endif (WIN32)
 
 # Linux Libraries
@@ -57,6 +57,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 # you should add this line in every CMake.js based project.
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
 target_link_libraries(${PROJECT_NAME} ${SUPERPOWERED})
+
+if (WIN32)
+    target_link_libraries(${PROJECT_NAME} wsock32 ws2_32)
+endif(WIN32)
 
 # Include N-API wrappers
 execute_process(COMMAND node -p "require('node-addon-api').include"
