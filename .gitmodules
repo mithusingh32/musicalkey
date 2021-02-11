@@ -1,3 +1,0 @@
-[submodule "audio-processor/superpowered"]
-	path = audio-processor/superpowered
-	url = https://github.com/superpoweredSDK/Low-Latency-Android-iOS-Linux-Windows-tvOS-macOS-Interactive-Audio-Platform.git
