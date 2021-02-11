@@ -6,10 +6,10 @@
 
 #include "AudioAnalyzer.h"
 
-#include "../superpowered/Superpowered/Superpowered.h"
-#include "../superpowered/Superpowered/SuperpoweredAnalyzer.h"
-#include "../superpowered/Superpowered/SuperpoweredDecoder.h"
-#include "../superpowered/Superpowered/SuperpoweredSimple.h"
+#include "Superpowered.h"
+#include "SuperpoweredAnalyzer.h"
+#include "SuperpoweredDecoder.h"
+#include "SuperpoweredSimple.h"
 
 namespace AudioAnalyzer
 {

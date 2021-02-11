@@ -16,6 +16,9 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
+// This works, but need to create typing for it
+// import MyClass from '../../audio-processor/build/Release/addon.node'
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';

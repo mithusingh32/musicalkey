@@ -10,15 +10,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 # Essential include files to build a node addon,
-# you should add this line in every CMake.js based project.     
+# you should add this line in every CMake.js based project.
 include_directories(${CMAKE_JS_INC})
-include_directories(${CMAKE_SOURCE_DIR}/superpowered/Superpowered/)
+
+# The enviornmental variable SUPERPOWERED should point to the include directory
+include_directories($ENV{SUPERPOWERED})
 
 # Declare the location of the source files
 file(GLOB SOURCE_FILES "src/*.cpp" "src/*.h")
 
 # Disable in production
-set(CMAKE_FIND_DEBUG_MODE true)
+set(CMAKE_FIND_DEBUG_MODE false)
 
 # This line will tell CMake that we're building a shared library
 # from the above source files
@@ -30,11 +32,11 @@ if (WIN32)
     find_library(
             SUPERPOWERED
             NAMES "SuperpoweredWin142_Release_MD_x64"
-            PATHS ${CMAKE_SOURCE_DIR}/superpowered/Superpowered/libWindows
+            PATHS $ENV{SUPERPOWERED}/libWindows
             REQUIRED
             )
             SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
-            
+
 endif (WIN32)
 
 # Linux Libraries
@@ -43,12 +45,11 @@ if (UNIX)
     find_library(
         SUPERPOWERED
         NAMES "SuperpoweredLinuxX86_64"
-        PATHS ${CMAKE_SOURCE_DIR}/superpowered/Superpowered
+        PATHS $ENV{SUPERPOWERED}
         REQUIRED
     )
 endif (UNIX)
-        
-        
+
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
 # This line will give our library file a .node extension without any "lib" prefix
