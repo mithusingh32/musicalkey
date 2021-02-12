@@ -11,13 +11,13 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
 // This works, but need to create typing for it
-// import MyClass from '../../audio-processor/build/Release/addon.node'
+import AudioProcessor from '../../audio-processor/build/Release/addon.node';
 
 export default class AppUpdater {
   constructor() {
@@ -132,4 +132,13 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
+});
+
+// Event handler for asynchronous incoming messages
+ipcMain.on('processAudio', (event, args) => {
+  console.log(args);
+  AudioProcessor.getData(args, (err: any, resp: any) => {
+    event.sender.send('returnFromProcessAudio', resp);
+  });
+  // Event emitter for sending asynchronous messages
 });

@@ -11,3 +11,6 @@ lib/*
 .vscode/*
 
 yarn.lock
+
+
+.eslintcache
