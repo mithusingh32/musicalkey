@@ -114,6 +114,9 @@ export default merge(baseConfig, {
             },
           },
           {
+            loader: 'postcss-loader'
+          },
+          {
             loader: 'sass-loader',
           },
         ],
