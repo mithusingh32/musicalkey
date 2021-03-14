@@ -26,7 +26,7 @@
     "test",
     "release",
     "src/main.prod.js",
-    "src/renderer.prod.js",
+    "src/renderer/renderer.prod.js",
     "src/dist",
     ".erb/dll"
   ]

@@ -17,8 +17,9 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 
 // This works, but need to create typing for it
-import AudioProcessor from '../../audio-processor/build/Release/addon.node';
+var AudioProcessor = require("../../audio-processor/build/Release/addon.node");
 
+console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+process.versions.electron);
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -136,9 +137,7 @@ app.on('activate', () => {
 
 // Event handler for asynchronous incoming messages
 ipcMain.on('processAudio', (event, args) => {
-  console.log(args);
   AudioProcessor.getData(args, (err: any, resp: any) => {
     event.sender.send('returnFromProcessAudio', resp);
   });
-  // Event emitter for sending asynchronous messages
 });

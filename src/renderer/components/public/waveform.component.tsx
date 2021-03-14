@@ -17,16 +17,24 @@ const Waveform = ({
       container: wavesurfer.current,
       waveColor: 'violet',
       progressColor: 'purple',
+      barWidth: 3.0,
+      responsive: true,
+      normalize: true,
     });
-
-    wavesurfer.current.load(inFileLocation);
-    wavesurfer.current.play();
+    if (wavesurfer != null) {
+      wavesurfer.current.load(inFileLocation);
+      wavesurfer.current.play();
+      wavesurfer.current.on('seek', () => {
+        wavesurfer.current.play(wavesurfer.current.getCurrentTime(), wavesurfer.current.getDuration());
+      });
+    }
   }, [inFileLocation]);
 
   const handlePlayPause = () => {
     // setPlayPause(!playPause);
     wavesurfer.current.playPause();
   };
+
 
   return (
     <div>
