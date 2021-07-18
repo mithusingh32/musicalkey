@@ -1,13 +1,11 @@
 cmake_minimum_required(VERSION 3.17)
 
 # Name of the project (will be the name of the plugin)
-project (addon)
+project (audio-processor)
 set(CMAKE_CXX_STANDARD 17)
 
 # Don't add this line if you will try_compile with boost.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-
 
 # Essential include files to build a node addon,
 # you should add this line in every CMake.js based project.
@@ -60,6 +58,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
 target_link_libraries(${PROJECT_NAME} ${SUPERPOWERED})
 
+# Library required by Supoerpowered SDK on windows
 if (WIN32)
     target_link_libraries(${PROJECT_NAME} wsock32 ws2_32)
 endif(WIN32)

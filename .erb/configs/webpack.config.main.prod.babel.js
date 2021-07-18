@@ -23,15 +23,13 @@ export default merge(baseConfig, {
 
   mode: 'production',
 
-  // stats: 'verbose', 
-  
   target: 'electron-main',
   
   entry: './src/main/main.dev.ts',
 
   output: {
     path: path.join(__dirname, '../../'),
-    filename: './main.prod.js',
+    filename: './src/main.prod.js',
   },
 
   optimization: {

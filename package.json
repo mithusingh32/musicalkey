@@ -3,7 +3,7 @@
   "productName": "ElectronReact",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
-    "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
+    "build": "cd audio-processor && yarn build && cd .. && concurrently \"yarn build:main\" \"yarn build:renderer\"",
     "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
     "build:renderer": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.renderer.prod.babel.js",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
@@ -30,17 +30,18 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
+    "productName": "MusicalKey",
     "appId": "org.erb.ElectronReact",
+    "asar": false,
     "files": [
       "dist/",
       "node_modules/",
       "index.html",
       "main.prod.js",
       "main.prod.js.map",
-      "audio-processor/build/Release/addon.node"
+      "package.json",
+      "audio-processor.node"
     ],
-    "asar": false,
     "afterSign": ".erb/scripts/Notarize.js",
     "mac": {
       "target": [
@@ -93,12 +94,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/mithusingh32/musicalkey.git"
   },
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Suukhmeet Khalar",
+    "email": "mithusingh32@gmail.com"
   },
   "contributors": [
     {
@@ -238,7 +238,7 @@
     "node-sass": "^5.0.0",
     "opencollective-postinstall": "^2.0.3",
     "postcss": "^8.1.1",
-    "postcss-loader": "^5.0.0",
+    "postcss-loader": "^6.1.1",
     "prettier": "^2.0.5",
     "react-refresh": "^0.9.0",
     "react-test-renderer": "^17.0.1",

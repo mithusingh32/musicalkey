@@ -16,10 +16,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
-// This works, but need to create typing for it
-var AudioProcessor = require("../../audio-processor/build/Release/addon.node");
+const AudioProcessor = require('../audio-processor.node');
 
-console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+process.versions.electron);
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -81,7 +79,10 @@ const createWindow = async () => {
     },
   });
 
-  mainWindow.loadURL(`file://${__dirname}/../index.html`);
+  let loadURL = `file://${__dirname}/index.html`;
+  if (process.env.NODE_ENV === 'development')
+    loadURL = `file://${__dirname}/../index.html`;
+  mainWindow.loadURL(loadURL);
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
@@ -135,7 +136,7 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
 
-// Event handler for asynchronous incoming messages
+// // Event handler for asynchronous incoming messages
 ipcMain.on('processAudio', (event, args) => {
   AudioProcessor.getData(args, (err: any, resp: any) => {
     event.sender.send('returnFromProcessAudio', resp);

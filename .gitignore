@@ -1,16 +1,34 @@
+# Build and dist directories
 build/
 build/*
+dist/
+dist/*
+release/
+release/*
+
+# Node modules
 node_modules/
 node_modules/*
-package-lock.json
+
+# Libraries 
 superpowered/
 superpowered/*
 lib/
 lib/*
-.vscode/
-.vscode/*
-
-yarn.lock
 
 
+#  Lock and log files
+*-lock.json
+*.lock
+*.log
+
+# Cache
 .eslintcache
+
+
+# Prod files 
+*.prod.js
+*.prod.js.map
+
+# Native node modules
+*.node
