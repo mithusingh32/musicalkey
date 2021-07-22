@@ -9,7 +9,7 @@ fs.access(nodeModulePath, fs.constants.F_OK, (err) => {
 });
 
 // Delete destination file if it exists
-if (fs.statSync(destPath, {throwIfNoEntry: false} !== undefined)) fs.unlinkSync(destPath)
+if (fs.statSync(destPath, { throwIfNoEntry: false }) !== undefined) fs.unlinkSync(destPath)
 
 // If it exists, move it 
 fs.copyFileSync(nodeModulePath, destPath, fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE_FORCE, (err) => {

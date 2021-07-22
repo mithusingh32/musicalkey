@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './views/public/home.view';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import * as Views from './views/public';
 
 export default function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={Home} />
+        <Route path="/" component={Views.Home} />
       </Switch>
     </Router>
   );
