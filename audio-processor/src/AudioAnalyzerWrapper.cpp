@@ -6,11 +6,9 @@
 
 namespace AudioAnalyzerWrapper
 {
-    std::string returnHelloWorld() { return "Hello World"; }
-
     Napi::Value getAudioData(const Napi::CallbackInfo &info)
     {
-         Napi::Env env = info.Env();
+        Napi::Env env = info.Env();
         if (info.Length() < 2)
         {
             Napi::TypeError::New(env, "Wrong number of arguments")
@@ -25,9 +23,9 @@ namespace AudioAnalyzerWrapper
         }
 
         Napi::Function callback = info[1].As<Napi::Function>();
-        AudioAnalyzer::AudioAnalyzer *test = new AudioAnalyzer::AudioAnalyzer(callback, info[0].As<Napi::String>());
-        test->Queue();
-        return Napi::String::New(info.Env(), "Test");
+        AudioAnalyzer::AudioAnalyzer *AudioAnalyzer = new AudioAnalyzer::AudioAnalyzer(callback, info[0].As<Napi::String>());
+        AudioAnalyzer->Queue();
+        return Napi::String::New(info.Env(), "AudioData");
     }
 
     Napi::Object Init(Napi::Env env, Napi::Object exports)

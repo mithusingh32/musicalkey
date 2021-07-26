@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const BaseLayout = ({ children }: IProps) => {
-  return <main>{children}</main>;
+  return <main className="static flex w-full h-full">{children}</main>;
 };
 
 export default BaseLayout;
