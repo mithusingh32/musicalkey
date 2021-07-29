@@ -1,4 +1,4 @@
-// import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 // import WaveSurfer from 'wavesurfer.js';
 
 // const Waveform = ({
@@ -49,4 +49,10 @@
 //   );
 // };
 
-// export default Waveform;
+const Waveform = () => {
+  return (
+    <div className="w-screen text-center bg-blue-200">Interactive Waveform</div>
+  );
+};
+
+export default Waveform;

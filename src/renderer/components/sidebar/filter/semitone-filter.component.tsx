@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const SemitoneFilter = ({ className = '' }: { className?: string }) => {
+const SemitoneFilter = ({ className = '' }: { className?: string }) => {
   return (
     <div className={className}>
       <div className="mb-2 filter-label">Show +/- 1/2</div>
@@ -22,4 +22,4 @@ export const SemitoneFilter = ({ className = '' }: { className?: string }) => {
   );
 };
 
-export default 'SemitoneFilter';
+export default SemitoneFilter;

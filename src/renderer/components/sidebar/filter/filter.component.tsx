@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { KeyFilter } from './key-filter.component';
+import '../../../../../assets/styles/sidebar.style.scss';
 
-import '../../../../../../assets/styles/sidebar.style.scss';
-import { BPMRangeFilter } from './bpmfilter.component';
-import { SearchBar } from './searchbar.component';
-import { SemitoneFilter } from './semitone-filter.component';
+import KeyFilter from './key-filter.component';
+import BPMRangeFilter from './bpmfilter.component';
+import SearchBar from './searchbar.component';
+import SemitoneFilter from './semitone-filter.component';
 
-export const Filter = () => {
+const Filter = () => {
   return (
     <div className="relative flex flex-col bg-gray-500 h-52 ">
       <SemitoneFilter className="absolute top-0 right-0 mr-5" />
@@ -17,4 +17,4 @@ export const Filter = () => {
   );
 };
 
-export default 'Filter';
+export default Filter;

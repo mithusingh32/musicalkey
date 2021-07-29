@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const SearchBar = ({ className = '' }: { className?: string }) => {
+const SearchBar = ({ className = '' }: { className?: string }) => {
   return (
     <div className={`${className} flex`}>
       <input
@@ -12,4 +12,4 @@ export const SearchBar = ({ className = '' }: { className?: string }) => {
   );
 };
 
-export default 'SearchBar';
+export default SearchBar;

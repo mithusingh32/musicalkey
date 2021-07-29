@@ -1,1 +1,1 @@
-export * from './public';
+export * from './home.view';

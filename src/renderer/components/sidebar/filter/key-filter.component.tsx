@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-export const KeyFilter = ({ className = '' }: { className?: string }) => {
+const KeyFilter = ({ className = '' }: { className?: string }) => {
   const keys = [
+    'All',
     '1A',
     '2A',
     '3A',
@@ -48,4 +49,4 @@ export const KeyFilter = ({ className = '' }: { className?: string }) => {
   );
 };
 
-export default 'KeyFilter';
+export default KeyFilter;

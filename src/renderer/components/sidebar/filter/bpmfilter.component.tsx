@@ -38,7 +38,7 @@ const Range = ({
   );
 };
 
-export const BPMRangeFilter = ({ className = '' }: { className?: string }) => {
+const BPMRangeFilter = ({ className = '' }: { className?: string }) => {
   const [minBPM, setMinBPM] = React.useState<number>(70);
   const [maxBPM, setMaxBPM] = React.useState<number>(160);
 
@@ -54,4 +54,4 @@ export const BPMRangeFilter = ({ className = '' }: { className?: string }) => {
   );
 };
 
-export default 'BPMRangeFilter';
+export default BPMRangeFilter;
