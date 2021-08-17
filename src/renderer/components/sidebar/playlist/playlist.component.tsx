@@ -52,7 +52,7 @@ const AddPlaylist = ({
     }
   };
   return (
-    <div className="absolute bottom-0 my-2">
+    <div className="my-2">
       {!addPlaylist ? (
         <span
           role="button"
@@ -90,8 +90,9 @@ const Playlists = () => {
     setPlaylists(newPlaylist);
   };
   return (
-    <div className="relative flex flex-col w-full ml-2 h-96">
+    <div className="relative flex flex-col w-full ml-2 overflow-auto h-96">
       <div className="flex-1">
+        <AddPlaylist addPlaylistFunction={newPlaylistHandler} />
         {Object.entries(playlists).map((playlist) => {
           return (
             <Playlist
@@ -106,7 +107,6 @@ const Playlists = () => {
           );
         })}
       </div>
-      <AddPlaylist addPlaylistFunction={newPlaylistHandler} />
     </div>
   );
 };

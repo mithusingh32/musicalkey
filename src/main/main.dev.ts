@@ -15,8 +15,12 @@ import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import { AudioData } from '../renderer/interfaces/audio.interface';
 
 const AudioProcessor = require('../audio-processor.node');
+
+// Import ipc functions
+require('./ipc/updateMainStore');
 
 export default class AppUpdater {
   constructor() {
@@ -43,7 +47,7 @@ if (
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS'];
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
   return installer
     .default(
@@ -140,7 +144,8 @@ app.on('activate', () => {
 
 // // Event handler for asynchronous incoming messages
 ipcMain.on('processAudio', (event, args) => {
-  AudioProcessor.getData(args, (err: any, resp: any) => {
-    event.sender.send('returnFromProcessAudio', resp);
+  AudioProcessor.getData(args, (err: { error: string }, resp: AudioData) => {
+    if (err) event.reply(err);
+    else event.reply(resp);
   });
 });

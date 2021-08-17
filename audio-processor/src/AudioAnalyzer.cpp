@@ -98,7 +98,7 @@ namespace AudioAnalyzer
 
         if (mError)
         {
-            obj.Set("Error", mError);
+            obj.Set("error", mError);
             obj.Set("ErrorMessage", "Can't parse audio");
         }
         else

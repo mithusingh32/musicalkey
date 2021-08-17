@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import * as Views from './views';
 
-export default function App() {
+const App = () => {
   return (
     <Router>
       <Switch>
@@ -10,4 +10,6 @@ export default function App() {
       </Switch>
     </Router>
   );
-}
+};
+
+export default App;

@@ -1,57 +1,42 @@
-import React from 'react';
-// import WaveSurfer from 'wavesurfer.js';
+import * as React from 'react';
+import WaveSurfer from 'wavesurfer.js';
 
-// const Waveform = ({
-//   inFileLocation,
-//   audioData,
-// }: {
-//   inFileLocation: string;
-//   audioData: any;
-// }) => {
-//   const [playPause, setPlayPause] = useState(false);
+const Waveform = ({ inAudioFilePath }: { inAudioFilePath: string }) => {
+  const wavesurfer = React.useRef(null);
 
-//   const wavesurfer = useRef(null);
+  const handleButton = () => {
+    wavesurfer.current.playPause();
+  };
 
-//   useEffect(() => {
-//     wavesurfer.current = WaveSurfer.create({
-//       container: wavesurfer.current,
-//       waveColor: 'violet',
-//       progressColor: 'purple',
-//       barWidth: 3.0,
-//       responsive: true,
-//       normalize: true,
-//     });
-//     if (wavesurfer != null) {
-//       wavesurfer.current.load(inFileLocation);
-//       wavesurfer.current.play();
-//       wavesurfer.current.on('seek', () => {
-//         wavesurfer.current.play(wavesurfer.current.getCurrentTime(), wavesurfer.current.getDuration());
-//       });
-//     }
-//   }, [inFileLocation]);
+  React.useEffect(() => {
+    wavesurfer.current = WaveSurfer.create({
+      container: wavesurfer.current,
+      waveColor: 'violet',
+      progressColor: 'purple',
+      barWidth: 3.0,
+      responsive: true,
+      normalize: true,
+    });
 
-//   const handlePlayPause = () => {
-//     // setPlayPause(!playPause);
-//     wavesurfer.current.playPause();
-//   };
+    if (wavesurfer !== null && wavesurfer.current !== null) {
+      wavesurfer.current.load(inAudioFilePath);
+      wavesurfer.current.play();
+      wavesurfer.current.on('seek', () => {
+        wavesurfer.current.play(
+          wavesurfer.current.getCurrentTime(),
+          wavesurfer.current.getDuration()
+        );
+      });
+    }
+  }, [inAudioFilePath]);
 
-//   return (
-//     <div>
-//       <h2>{audioData.title}</h2>
-//       <h3>
-//         Key: {audioData.camelotWheelKey} - {audioData.chordName}
-//       </h3>
-//       <div ref={wavesurfer} />
-//       <button type="button" onClick={handlePlayPause}>
-//         Play/Pause
-//       </button>
-//     </div>
-//   );
-// };
-
-const Waveform = () => {
   return (
-    <div className="w-screen text-center bg-blue-200">Interactive Waveform</div>
+    <div className="w-screen text-center bg-blue-200 h-28 relataive">
+      <button type="button" onClick={handleButton}>
+        Play/Pause
+      </button>
+      <div ref={wavesurfer} />
+    </div>
   );
 };
 
