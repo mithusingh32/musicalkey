@@ -9,18 +9,19 @@ import AudioSkipButton from './button/skip-audio-button.component';
 
 const AudioControl = () => {
   const dispatch = RRedux.useDispatch();
-  const isPlaying = RRedux.useSelector(
-    (state: RootState) => state.nowPlaying.isPlaying
+  const nowPlayingState = RRedux.useSelector(
+    (state: RootState) => state.nowPlaying
   );
   const togglePlayPauseAction = () => {
-    dispatch(togglePlayPause(!isPlaying));
+    if (nowPlayingState.isLoaded === 'loaded')
+      dispatch(togglePlayPause(!nowPlayingState.isPlaying));
   };
   return (
     <div className="flex h-28">
       <div className="flex w-full bg-blue-400 h-28" style={{ width: '18em' }}>
         <div className="flex mx-auto">
           <AudioBackButton />
-          {!isPlaying ? (
+          {nowPlayingState.isPlaying ? (
             <AudioPauseButton togglePlayPause={togglePlayPauseAction} />
           ) : (
             <AudioPlayButton togglePlayPause={togglePlayPauseAction} />

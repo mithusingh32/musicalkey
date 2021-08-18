@@ -1,5 +1,5 @@
 export interface AudioData {
-  error: string | null;
+  error: string | null | undefined;
   location: string;
   title: string;
   artist: string;
@@ -7,4 +7,5 @@ export interface AudioData {
   length: string | number;
   camelotWheelKey: string;
   chordName: string;
+  bpm: number | string;
 }

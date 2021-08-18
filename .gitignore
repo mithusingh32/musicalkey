@@ -32,7 +32,3 @@ lib/*
 
 # Native node modules
 *.node
-
-# erb Files
-renderer.dev.dll.js
-renderer.json

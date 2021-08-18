@@ -11,16 +11,16 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import { AudioData } from '../renderer/interfaces/audio.interface';
-
-const AudioProcessor = require('../audio-processor.node');
 
 // Import ipc functions
-require('./ipc/updateMainStore');
+require('./ipc/ipc');
+
+// Import database
+require('./databases/local.database');
 
 export default class AppUpdater {
   constructor() {
@@ -140,12 +140,4 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
-});
-
-// // Event handler for asynchronous incoming messages
-ipcMain.on('processAudio', (event, args) => {
-  AudioProcessor.getData(args, (err: { error: string }, resp: AudioData) => {
-    if (err) event.reply(err);
-    else event.reply(resp);
-  });
 });

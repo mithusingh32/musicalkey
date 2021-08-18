@@ -15,9 +15,25 @@ const Footer = () => {
         <input
           type="file"
           onChange={(e) => {
-            setAudioFile(e.target.files[0].path);
-            if (e.target.files !== null)
-              dispatch(updateNowPlaying(e.target.files[0].path));
+            if (e.target.files !== null) {
+              setAudioFile(e.target.files[0].path);
+              dispatch(
+                updateNowPlaying({
+                  audioTrack: {
+                    error: '',
+                    location: e.target.files[0].path,
+                    title: '',
+                    artist: '',
+                    album: '',
+                    length: '',
+                    camelotWheelKey: '',
+                    chordName: '',
+                  },
+                  isPlaying: true,
+                  isLoaded: 'loaded',
+                })
+              );
+            }
           }}
         />
       ) : (

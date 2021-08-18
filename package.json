@@ -275,6 +275,7 @@
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
     "source-map-support": "^0.5.19",
+    "uuidv4": "^6.2.12",
     "wavesurfer.js": "^4.4.0"
   },
   "devEngines": {

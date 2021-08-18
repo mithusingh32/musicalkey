@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import * as Views from './views';
 

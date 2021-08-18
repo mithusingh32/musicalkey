@@ -4,6 +4,7 @@ import { AudioData } from '../../interfaces/audio.interface';
 export interface NowPlaying {
   audioTrack: AudioData;
   isPlaying: boolean;
+  isLoaded: 'not-loaded' | 'loaded' | 'error' | 'loaded';
 }
 
 export const initialState: NowPlaying = {
@@ -16,8 +17,10 @@ export const initialState: NowPlaying = {
     length: '',
     camelotWheelKey: '',
     chordName: '',
+    bpm: '',
   },
   isPlaying: false,
+  isLoaded: 'not-loaded',
 };
 
 export const getLastPlayed = createAsyncThunk(
@@ -39,6 +42,7 @@ export const nowPlayingSlice = createSlice({
         ...state,
         audioTrack: action.payload.audioTrack,
         isPlaying: action.payload.isPlaying,
+        isLoaded: 'loaded',
       };
     },
     togglePlayPause(state: NowPlaying, action: PayloadAction<boolean>) {
