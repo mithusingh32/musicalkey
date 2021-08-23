@@ -32,3 +32,10 @@ lib/*
 
 # Native node modules
 *.node
+
+# database 
+audio-data/
+
+#dll files
+.erb/dll
+.erb/dll/*
