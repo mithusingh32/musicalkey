@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AudioData } from '../../interfaces/audio.interface';
 
 export interface NowPlaying {
-  audioTrack: AudioData;
+  audioTrack?: AudioData;
   isPlaying: boolean;
-  isLoaded: 'not-loaded' | 'loaded' | 'error' | 'loaded';
+  isLoaded: 'not-loaded' | 'loading' | 'error' | 'loaded';
 }
 
 export const initialState: NowPlaying = {
@@ -38,11 +38,22 @@ export const nowPlayingSlice = createSlice({
   initialState,
   reducers: {
     updateNowPlaying(state: NowPlaying, action: PayloadAction<NowPlaying>) {
+      if (
+        !action.payload.audioTrack &&
+        state.isLoaded !== action.payload.isLoaded &&
+        state.isPlaying !== action.payload.isPlaying
+      ) {
+        return {
+          ...state,
+          isPlaying: action.payload.isPlaying,
+          isLoaded: action.payload.isLoaded,
+        };
+      }
       return {
         ...state,
         audioTrack: action.payload.audioTrack,
         isPlaying: action.payload.isPlaying,
-        isLoaded: 'loaded',
+        isLoaded: 'loading',
       };
     },
     togglePlayPause(state: NowPlaying, action: PayloadAction<boolean>) {

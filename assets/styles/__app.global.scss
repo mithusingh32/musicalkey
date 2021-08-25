@@ -5,3 +5,8 @@
 @import 'tailwindcss/utilities';
 
 @import './sidebar.style.scss';
+
+// Temporary fix for ugly ring for accessibility
+div {
+  outline: none;
+}

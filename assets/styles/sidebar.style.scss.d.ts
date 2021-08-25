@@ -1,6 +1,7 @@
 declare namespace SidebarStyleScssNamespace {
   export interface ISidebarStyleScss {
     'filter-label': string;
+    sidebar: string;
   }
 }
 

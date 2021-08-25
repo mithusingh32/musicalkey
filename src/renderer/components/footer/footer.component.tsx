@@ -28,6 +28,7 @@ const Footer = () => {
                     length: '',
                     camelotWheelKey: '',
                     chordName: '',
+                    bpm: '',
                   },
                   isPlaying: true,
                   isLoaded: 'loaded',

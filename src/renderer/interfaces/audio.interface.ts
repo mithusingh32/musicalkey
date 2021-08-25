@@ -8,4 +8,5 @@ export interface AudioData {
   camelotWheelKey: string;
   chordName: string;
   bpm: number | string;
+  playlist?: undefined | null | string[];
 }
