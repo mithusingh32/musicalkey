@@ -7,7 +7,7 @@ import AudioCollection from '../components/audio-collection/audio-collection.com
 export const Home = () => {
   return (
     <BaseLayout>
-      <div className="flex w-screen">
+      <div className="flex">
         <Sidebar />
         <AudioCollection />
       </div>
