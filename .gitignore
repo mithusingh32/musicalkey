@@ -28,6 +28,7 @@ lib/*
 
 # Prod files 
 *.prod.js.*
+*.prod.js
 *.prod.js.map
 
 # Native node modules

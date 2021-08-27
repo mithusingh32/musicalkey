@@ -6,8 +6,7 @@
 
 @import './sidebar.style.scss';
 
-// Temporary fix for ugly ring for accessibility
-div {
+yarn bdiv {
   outline: none;
 }
 
