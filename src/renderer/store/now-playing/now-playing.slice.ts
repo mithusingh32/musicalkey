@@ -7,7 +7,7 @@ export interface NowPlaying {
   isLoaded: 'not-loaded' | 'loading' | 'error' | 'loaded';
 }
 
-export const initialState: NowPlaying = {
+const initialState: NowPlaying = {
   audioTrack: {
     error: '',
     location: '',

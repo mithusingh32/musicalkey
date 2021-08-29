@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import NowPlayingReducers from './now-playing/now-playing.slice';
+import FetchDataReducers from './audio-data/fetch-data.slice';
 
 const store = configureStore({
   reducer: {
     nowPlaying: NowPlayingReducers,
+    audioCollection: FetchDataReducers,
   },
 });
 

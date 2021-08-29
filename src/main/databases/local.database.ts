@@ -21,7 +21,7 @@ if (
   db.info()
     .then((dbInfo: any) => {
       if (dbInfo.doc_count === 0) {
-        makeData(50).forEach((element: any) => {
+        makeData(10).forEach((element: any) => {
           db.put(element);
         });
       }
