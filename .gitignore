@@ -35,7 +35,7 @@ lib/*
 *.node
 
 # database 
-audio-data/
+audio-database/
 
 #dll files
 .erb/dll

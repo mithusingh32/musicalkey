@@ -11,7 +11,7 @@ const pouchdbFind = require('pouchdb-find');
 
 PouchDB.plugin(pouchdbDebug).plugin(pouchdbFind);
 
-const db = new PouchDB('audio-data');
+const db = new PouchDB('audio-database');
 
 if (
   process.env.NODE_ENV === 'development' ||
