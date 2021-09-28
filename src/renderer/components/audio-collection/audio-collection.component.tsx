@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-props-no-spreading */
+import _ from 'lodash';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import useSize from '../../hooks/useSize.hook';
@@ -21,6 +22,7 @@ const AudioCollection = () => {
   }>({ error: false, showModal: false });
   const [isLoading, setIsLoading] = React.useState('');
   const audioData = useSelector((state: RootState) => state.audioCollection);
+  const filtering = useSelector((state: RootState) => state.audioFiltering);
   const tableRef = React.useRef(null);
   const size = useSize(tableRef); // Pass this to the Table Component to resize the header
 
@@ -34,8 +36,20 @@ const AudioCollection = () => {
   }, [audioData]);
 
   const data = React.useMemo(() => {
-    return tableData;
-  }, [tableData]);
+    if (filtering.stringFilter === '') {
+      return tableData;
+    }
+    const stringFilteredAudioData = _.filter(
+      tableData,
+      (audioEntry: { id: string; key: string; doc: AudioData }) => {
+        return (
+          audioEntry.doc.title.includes(filtering.stringFilter) ||
+          audioEntry.doc.artist.includes(filtering.stringFilter)
+        );
+      }
+    );
+    return stringFilteredAudioData;
+  }, [tableData, filtering]);
 
   return (
     <div

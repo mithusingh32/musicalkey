@@ -5,8 +5,7 @@
   "main": "index.js",
   "author": "Sukhmeet Khalar",
   "scripts": {
-    "build": "cmake-js compile",
-    "postbuild": "node post-build.js"
+    "build": "cmake-js compile"
   },
   "license": "MIT"
 }
