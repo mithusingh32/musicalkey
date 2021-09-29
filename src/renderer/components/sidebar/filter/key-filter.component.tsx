@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateKeyFilter } from '../../../store/audio-data/filter.slice';
 
 const KeyFilter = ({ className = '' }: { className?: string }) => {
+  const dispatch = useDispatch();
   const keys = [
     'All',
     '1A',
@@ -31,7 +34,13 @@ const KeyFilter = ({ className = '' }: { className?: string }) => {
   return (
     <div className={className}>
       <div className="mb-2 text-xl font-bold">Key:</div>
-      <select className="w-16 text-center" name="key">
+      <select
+        className="w-16 text-center"
+        name="key"
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+          dispatch(updateKeyFilter(e.target.value));
+        }}
+      >
         {keys.map((key: string, index: number) => {
           const componentKey = `${key}-${index}`;
           return (

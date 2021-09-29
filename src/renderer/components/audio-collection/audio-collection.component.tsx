@@ -36,11 +36,26 @@ const AudioCollection = () => {
   }, [audioData]);
 
   const data = React.useMemo(() => {
-    if (filtering.stringFilter === '') {
-      return tableData;
-    }
-    const stringFilteredAudioData = _.filter(
+    console.log(filtering);
+    // TODO: Find a better to chain these
+    // The filtering is done in multiple steps:
+    // 1. Filter for key and semitones
+    // 2. Filter for BPM
+    // 3. Filter by string
+    const keyFiltered = _.filter(
       tableData,
+      (audioEntry: { id: string; key: string; doc: AudioData }) => {
+        // TODO create helper functions to get +/1,2 semitones/
+        // Semitone filterings:
+        // +1 = Left 5 / -1 = right 5
+        // +2 = left 2 / -2 = right 2
+        // +3 = left 9 / -9 = right 10
+        if (filtering.keyFilter === 'All') return audioEntry;
+        return audioEntry.doc.camelotWheelKey === filtering.keyFilter;
+      }
+    );
+    const finalFilter = _.filter(
+      keyFiltered,
       (audioEntry: { id: string; key: string; doc: AudioData }) => {
         return (
           audioEntry.doc.title.includes(filtering.stringFilter) ||
@@ -48,9 +63,10 @@ const AudioCollection = () => {
         );
       }
     );
-    return stringFilteredAudioData;
+    return finalFilter;
   }, [tableData, filtering]);
 
+  // TODO Fix  scroll bars and scrolling w/ header. Header is not scrolling at all
   return (
     <div
       className="w-screen pb-32 overflow-y-scroll bg-gray"

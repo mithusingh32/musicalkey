@@ -12,11 +12,7 @@ const SearchBar = ({ className = '' }: { className?: string }) => {
         type="text"
         placeholder="Search..."
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          dispatch(
-            updateStringFilter({
-              stringFilter: e.target.value,
-            })
-          );
+          dispatch(updateStringFilter(e.target.value));
         }}
       />
     </div>
