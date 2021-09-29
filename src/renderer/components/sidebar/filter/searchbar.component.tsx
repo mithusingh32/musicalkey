@@ -9,7 +9,7 @@ const SearchBar = ({ className = '' }: { className?: string }) => {
     <div className={`${className} flex`}>
       <input
         className="w-3/4 p-1 mx-auto mb-2 rounded-lg"
-        type="text"
+        type="search"
         placeholder="Search..."
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           dispatch(updateStringFilter(e.target.value));

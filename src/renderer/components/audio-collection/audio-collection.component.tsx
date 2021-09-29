@@ -4,6 +4,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { camelotChordNamesAndSemitones } from '../../../constants';
 import useSize from '../../hooks/useSize.hook';
 import { AudioData } from '../../interfaces/audio.interface';
 import { RootState } from '../../store/store';
@@ -36,7 +37,6 @@ const AudioCollection = () => {
   }, [audioData]);
 
   const data = React.useMemo(() => {
-    console.log(filtering);
     // TODO: Find a better to chain these
     // The filtering is done in multiple steps:
     // 1. Filter for key and semitones
@@ -45,17 +45,89 @@ const AudioCollection = () => {
     const keyFiltered = _.filter(
       tableData,
       (audioEntry: { id: string; key: string; doc: AudioData }) => {
-        // TODO create helper functions to get +/1,2 semitones/
-        // Semitone filterings:
-        // +1 = Left 5 / -1 = right 5
-        // +2 = left 2 / -2 = right 2
-        // +3 = left 9 / -9 = right 10
-        if (filtering.keyFilter === 'All') return audioEntry;
-        return audioEntry.doc.camelotWheelKey === filtering.keyFilter;
+        const key = filtering.keyFilter;
+        // Return all entried if no key is selected
+        if (key === 'All') return audioEntry;
+
+        // TODO Handle semitone filtering in a better way. This is such a mess.
+        // The issue I ran into was if I just enabled semitone filtering it would only populate the semitones'
+        // and not the key itself.
+
+        // Return +/- 1 Semitones if checked
+        if (filtering.semitoneFilter?.one_semi && key !== undefined) {
+          return (
+            audioEntry.doc.camelotWheelKey === key ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].plus_one ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].minus_one
+          );
+        }
+
+        // Return +/- 2 Semitones if checked
+        if (filtering.semitoneFilter?.two_semi && key !== undefined) {
+          return (
+            audioEntry.doc.camelotWheelKey === key ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].plus_two ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].minus_two
+          );
+        }
+
+        // Return +/1 & 2
+        if (
+          filtering.semitoneFilter?.one_semi &&
+          filtering.semitoneFilter?.two_semi &&
+          key !== undefined
+        ) {
+          return (
+            audioEntry.doc.camelotWheelKey === key ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].plus_one ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].minus_one ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].plus_two ||
+            audioEntry.doc.camelotWheelKey ===
+              camelotChordNamesAndSemitones[key].minus_two
+          );
+        }
+
+        // Return only the selected key
+        return audioEntry.doc.camelotWheelKey === key;
       }
     );
-    const finalFilter = _.filter(
+
+    // Filter for BPM range
+    const bpmFilter = _.filter(
       keyFiltered,
+      (audioEntry: { id: string; key: string; doc: AudioData }) => {
+        if (
+          filtering.BPM_Range.enable &&
+          filtering.BPM_Range?.start !== undefined &&
+          filtering.BPM_Range?.end !== undefined
+        ) {
+          // if the bpm is a string, convert to float before doing comparisonI
+          if (typeof audioEntry.doc.bpm === 'string') {
+            return (
+              parseFloat(audioEntry.doc.bpm) >= filtering.BPM_Range?.start &&
+              parseFloat(audioEntry.doc.bpm) <= filtering.BPM_Range?.end
+            );
+          }
+          return (
+            audioEntry.doc.bpm >= filtering.BPM_Range?.start &&
+            audioEntry.doc.bpm <= filtering.BPM_Range?.end
+          );
+        }
+        return audioEntry;
+      }
+    );
+
+    // Filter on search field
+    // TODO: Add fuzzy search?
+    const finalFilter = _.filter(
+      bpmFilter,
       (audioEntry: { id: string; key: string; doc: AudioData }) => {
         return (
           audioEntry.doc.title.includes(filtering.stringFilter) ||

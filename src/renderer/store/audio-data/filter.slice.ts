@@ -6,14 +6,18 @@ export interface Filtering {
   semitoneFilter?: {
     one_semi?: boolean;
     two_semi?: boolean;
-    three_semi?: boolean;
   };
-  BPM_Range?: { start: number; end: number };
+  BPM_Range: {
+    enable: boolean;
+    start?: number | undefined;
+    end?: number | undefined;
+  };
 }
 
 const initialState: Filtering = {
   stringFilter: '',
   keyFilter: 'All',
+  BPM_Range: { enable: false },
 };
 
 export const AudioFiltering = createSlice({
@@ -41,9 +45,39 @@ export const AudioFiltering = createSlice({
         },
       };
     },
+    updateBPMFilter(
+      state: Filtering,
+      action: PayloadAction<{
+        enable: boolean;
+        start: number | undefined;
+        end: number | undefined;
+      }>
+    ) {
+      if (!action.payload.enable)
+        return {
+          ...state,
+          BPM_Range: {
+            enable: action.payload.enable,
+            start: undefined,
+            end: undefined,
+          },
+        };
+      return {
+        ...state,
+        BPM_Range: {
+          enable: action.payload.enable,
+          start: action.payload.start,
+          end: action.payload.end,
+        },
+      };
+    },
   },
 });
 
-export const { updateStringFilter, updateKeyFilter, updateSemitoneFilter } =
-  AudioFiltering.actions;
+export const {
+  updateStringFilter,
+  updateKeyFilter,
+  updateSemitoneFilter,
+  updateBPMFilter,
+} = AudioFiltering.actions;
 export default AudioFiltering.reducer;
