@@ -8,17 +8,6 @@ export interface NowPlaying {
 }
 
 const initialState: NowPlaying = {
-  audioTrack: {
-    error: '',
-    location: '',
-    title: '',
-    artist: '',
-    album: '',
-    length: '',
-    camelotWheelKey: '',
-    chordName: '',
-    bpm: '',
-  },
   isPlaying: false,
   isLoaded: 'not-loaded',
 };
@@ -38,6 +27,7 @@ export const nowPlayingSlice = createSlice({
   initialState,
   reducers: {
     updateNowPlaying(state: NowPlaying, action: PayloadAction<NowPlaying>) {
+      // TODO: Verify if we need this check at all
       if (
         !action.payload.audioTrack &&
         state.isLoaded !== action.payload.isLoaded &&
@@ -53,13 +43,24 @@ export const nowPlayingSlice = createSlice({
         ...state,
         audioTrack: action.payload.audioTrack,
         isPlaying: action.payload.isPlaying,
-        isLoaded: 'loading',
+        isLoaded: action.payload.isLoaded,
       };
     },
-    togglePlayPause(state: NowPlaying, action: PayloadAction<boolean>) {
+    togglePlayPause(state: NowPlaying, action?: PayloadAction<boolean>) {
+      if (action) {
+        return {
+          ...state,
+          isPlaying: action.payload,
+        };
+      }
+      if (state.isLoaded === 'loaded') {
+        return {
+          ...state,
+          isPlaying: !state.isPlaying,
+        };
+      }
       return {
         ...state,
-        isPlaying: action.payload,
       };
     },
   },

@@ -3,10 +3,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import _ from 'lodash';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { camelotChordNamesAndSemitones } from '../../../constants';
 import useSize from '../../hooks/useSize.hook';
 import { AudioData } from '../../interfaces/audio.interface';
+import {
+  NowPlaying,
+  updateNowPlaying,
+} from '../../store/now-playing/now-playing.slice';
 import { RootState } from '../../store/store';
 import ErrorModal from '../error-modal.component';
 import Table from './table.component';
@@ -24,6 +28,7 @@ const AudioCollection = () => {
   const [isLoading, setIsLoading] = React.useState('');
   const audioData = useSelector((state: RootState) => state.audioCollection);
   const filtering = useSelector((state: RootState) => state.audioFiltering);
+  const dispatch = useDispatch();
   const tableRef = React.useRef(null);
   const size = useSize(tableRef); // Pass this to the Table Component to resize the header
 
@@ -51,7 +56,8 @@ const AudioCollection = () => {
 
         // TODO Handle semitone filtering in a better way. This is such a mess.
         // The issue I ran into was if I just enabled semitone filtering it would only populate the semitones'
-        // and not the key itself.
+        // and not the key itself. (Example: if I select key as 1A, and select +/-1 semitone, only the -/+1 semitone
+        // will show up.)
 
         // Return +/- 1 Semitones if checked
         if (filtering.semitoneFilter?.one_semi && key !== undefined) {
@@ -138,6 +144,16 @@ const AudioCollection = () => {
     return finalFilter;
   }, [tableData, filtering]);
 
+  // This method is passed to the Table to update the currently playing song when the user
+  // double clicks on a track inside the table
+  const dispatchNowPlaying = (selectedAudio: AudioData) => {
+    const newNowPlaying: NowPlaying = {
+      audioTrack: selectedAudio,
+      isPlaying: true,
+      isLoaded: 'loading',
+    };
+    dispatch(updateNowPlaying(newNowPlaying));
+  };
   // TODO Fix  scroll bars and scrolling w/ header. Header is not scrolling at all
   return (
     <div
@@ -171,7 +187,11 @@ const AudioCollection = () => {
       )}
       {isLoading === 'loaded' ? (
         <div className="overflow-auto">
-          <Table data={data} tableSize={size} />
+          <Table
+            data={data}
+            tableSize={size}
+            updateNowPlaying={dispatchNowPlaying}
+          />
         </div>
       ) : (
         <></>

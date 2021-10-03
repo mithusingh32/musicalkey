@@ -1,10 +1,19 @@
 import * as React from 'react';
 import * as RRedux from 'react-redux';
 import WaveSurfer from 'wavesurfer.js';
-import { togglePlayPause } from '../../../store/now-playing/now-playing.slice';
+import {
+  togglePlayPause,
+  updateNowPlaying,
+} from '../../../store/now-playing/now-playing.slice';
 import { RootState } from '../../../store/store';
 
-const Waveform = ({ inAudioFilePath }: { inAudioFilePath: string }) => {
+const Waveform = ({
+  inAudioFilePath,
+  setCurrentTime,
+}: {
+  inAudioFilePath: string;
+  setCurrentTime: (inTime: { totalTime: number; currentTime: number }) => void;
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const wavesurfer = React.useRef<any>(null);
   const dispatch = RRedux.useDispatch();
@@ -12,12 +21,15 @@ const Waveform = ({ inAudioFilePath }: { inAudioFilePath: string }) => {
     return state.nowPlaying.isPlaying;
   });
 
+  // TODO: Dynamically get the width and size and pass that into the
   React.useEffect(() => {
     wavesurfer.current = WaveSurfer.create({
       container: wavesurfer.current,
+      fillParent: true,
+      hideScrollbar: true,
       waveColor: 'violet',
       progressColor: 'purple',
-      barWidth: 3.0,
+      barWidth: 2.0,
       responsive: true,
       normalize: true,
     });
@@ -34,13 +46,27 @@ const Waveform = ({ inAudioFilePath }: { inAudioFilePath: string }) => {
 
       // Autoplay when track is loaded
       wavesurfer.current.on('ready', () => {
-        console.log('loaded audio');
+        // TODO Allow user to control weather to play track on 'ready' or just load the track and not auto-play it.
         wavesurfer.current.play();
-        dispatch(togglePlayPause(wavesurfer.current.isPlaying()));
+        // Update the isPlayingState once wavesurfer is ready to play.
+        dispatch(
+          updateNowPlaying({
+            isPlaying: wavesurfer.current.isPlaying(),
+            isLoaded: 'loaded',
+          })
+        );
       });
     }
-  }, [inAudioFilePath, dispatch]);
 
+    wavesurfer.current.on('audioprocess', () => {
+      if (wavesurfer.current.isPlaying()) {
+        setCurrentTime({
+          totalTime: wavesurfer.current.getDuration(),
+          currentTime: wavesurfer.current.getCurrentTime(),
+        });
+      }
+    });
+  }, [inAudioFilePath, setCurrentTime, dispatch]);
   React.useEffect(() => {
     if (wavesurfer && wavesurfer.current) {
       if (isPlaying) wavesurfer.current.play();
@@ -48,11 +74,7 @@ const Waveform = ({ inAudioFilePath }: { inAudioFilePath: string }) => {
     }
   }, [isPlaying, dispatch]);
 
-  return (
-    <div className="w-screen text-center bg-blue-200 h-28 relataive max-h-24">
-      <div ref={wavesurfer} />
-    </div>
-  );
+  return <div className="w-full text-center bg-blue-200" ref={wavesurfer} />;
 };
 
 export default Waveform;

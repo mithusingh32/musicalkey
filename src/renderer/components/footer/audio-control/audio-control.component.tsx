@@ -13,8 +13,11 @@ const AudioControl = () => {
     (state: RootState) => state.nowPlaying
   );
   const togglePlayPauseAction = () => {
-    if (nowPlayingState.isLoaded === 'loaded')
+    // If the audio is loaded, toggle the isPlaying state
+    // otherwise set it to false
+    if (nowPlayingState.isLoaded === 'loaded') {
       dispatch(togglePlayPause(!nowPlayingState.isPlaying));
+    } else dispatch(togglePlayPause(false));
   };
   return (
     <div className="flex h-28">

@@ -8,7 +8,7 @@ const AudioPauseButton = ({
   return (
     <svg
       onClick={togglePlayPause}
-      className="w-20 h-20 my-auto"
+      className="w-20 h-20 my-auto cursor-pointer"
       width="100%"
       height="100%"
       version="1.1"

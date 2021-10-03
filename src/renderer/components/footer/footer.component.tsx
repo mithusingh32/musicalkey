@@ -1,44 +1,42 @@
 import * as React from 'react';
-import * as RRedux from 'react-redux';
-import { updateNowPlaying } from '../../store/now-playing/now-playing.slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 import AudioControl from './audio-control/audio-control.component';
+import NowPlayingInfo from './now-playing-info/now-playing-info.component';
 import Waveform from './waveform/waveform.component';
 
 const Footer = () => {
   const [audioFile, setAudioFile] = React.useState('');
-  const dispatch = RRedux.useDispatch();
+  const [nowPlayingCurrentTime, setNowPlayingCurrentTime] = React.useState({
+    totalTime: 0,
+    currentTime: 0,
+  });
+  const nowPlayingStore = useSelector((state: RootState) => state.nowPlaying);
 
   return (
     <div className="absolute inset-x-0 bottom-0 flex w-screen bg-blue-500 h-28">
       <AudioControl />
+      <NowPlayingInfo
+        currentAudioPlayingTime={nowPlayingCurrentTime}
+        nowPlaying={nowPlayingStore}
+      />
       {audioFile === '' ? (
+        // TODO: Remove this input for audio file. THis is currently being used as a test
+        // TODO: Add some real test files to the project so we don't need to generate fake data.
         <input
           type="file"
           onChange={(e) => {
             if (e.target.files !== null) {
               setAudioFile(e.target.files[0].path);
-              dispatch(
-                updateNowPlaying({
-                  audioTrack: {
-                    error: '',
-                    location: e.target.files[0].path,
-                    title: '',
-                    artist: '',
-                    album: '',
-                    length: '',
-                    camelotWheelKey: '',
-                    chordName: '',
-                    bpm: '',
-                  },
-                  isPlaying: true,
-                  isLoaded: 'loaded',
-                })
-              );
             }
           }}
         />
       ) : (
-        <Waveform inAudioFilePath={audioFile} />
+        // Waveform Component will update the current playing time state
+        <Waveform
+          inAudioFilePath={audioFile}
+          setCurrentTime={setNowPlayingCurrentTime}
+        />
       )}
     </div>
   );

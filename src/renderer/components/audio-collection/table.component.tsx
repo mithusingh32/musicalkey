@@ -18,9 +18,11 @@ export interface TableData {
 const Table = ({
   data,
   tableSize,
+  updateNowPlaying,
 }: {
   data: any;
   tableSize: DOMRectReadOnly | undefined;
+  updateNowPlaying: (selectedAudio: any) => void;
 }) => {
   const [headerWidth, setHeaderWidth] = React.useState<number | undefined>(
     undefined
@@ -163,6 +165,10 @@ const Table = ({
                 {row.cells.map((cell) => {
                   return (
                     <div
+                      onDoubleClick={() => {
+                        // On doubleClick update the currently playing song
+                        updateNowPlaying(row.values);
+                      }}
                       {...cell.getCellProps()}
                       className="text-center select-none td"
                     >
