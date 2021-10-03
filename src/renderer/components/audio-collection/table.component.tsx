@@ -138,7 +138,7 @@ const Table = ({
             <div {...headerGroup.getHeaderGroupProps()} className="tr">
               {headerGroup.headers.map((column: any) => (
                 <div
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                   className="top-0 font-medium tracking-wider text-gray-500 uppercase cursor-pointer th bg-gray-50"
                 >
                   {column.render('Header')}
