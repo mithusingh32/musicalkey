@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
@@ -6,12 +7,22 @@ import NowPlayingInfo from './now-playing-info/now-playing-info.component';
 import Waveform from './waveform/waveform.component';
 
 const Footer = () => {
+  // TODO Move this to the correct component (not sure which it is right now).
+  ipcRenderer.on('process', (event, arg) => {
+    console.log(arg);
+  });
   const [audioFile, setAudioFile] = React.useState('');
   const [nowPlayingCurrentTime, setNowPlayingCurrentTime] = React.useState({
     totalTime: 0,
     currentTime: 0,
   });
   const nowPlayingStore = useSelector((state: RootState) => state.nowPlaying);
+
+  React.useEffect(() => {
+    if (audioFile !== '') {
+      ipcRenderer.send('processAudio', audioFile);
+    }
+  }, [audioFile]);
 
   return (
     <div className="absolute inset-x-0 bottom-0 flex w-screen bg-blue-500 h-28">

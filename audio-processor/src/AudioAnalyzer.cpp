@@ -3,7 +3,6 @@
 #include <chrono>
 #include <thread>
 
-
 #include "AudioAnalyzer.h"
 
 #include "Superpowered.h"
@@ -14,19 +13,7 @@
 namespace AudioAnalyzer
 {
     AudioAnalyzer::AudioAnalyzer(Napi::Function &callback, std::string inNewFile)
-        : AsyncWorker(callback), mError(false), mFileLocation(inNewFile), returnString(""), mTitle(""), mArtist(""), mAlbum(""), mLength(""), mCamelotWheelKey(""), mChordNames("")
-    {
-        Superpowered::Initialize(
-            "ExampleLicenseKey-WillExpire-OnNextUpdate",
-            true,  // enableAudioAnalysis (using SuperpoweredAnalyzer, SuperpoweredLiveAnalyzer, SuperpoweredWaveform or SuperpoweredBandpassFilterbank)
-            false, // enableFFTAndFrequencyDomain (using SuperpoweredFrequencyDomain, SuperpoweredFFTComplex, SuperpoweredFFTReal or SuperpoweredPolarFFT)
-            false, // enableAudioTimeStretching (using SuperpoweredTimeStretching)
-            false, // enableAudioEffects (using any SuperpoweredFX class)
-            true,  // enableAudioPlayerAndDecoder (using SuperpoweredAdvancedAudioPlayer or SuperpoweredDecoder)
-            false, // enableCryptographics (using Superpowered::RSAPublicKey, Superpowered::RSAPrivateKey, Superpowered::hasher or Superpowered::AES)
-            false  // enableNetworking (using Superpowered::httpRequest)
-        );
-    };
+        : AsyncWorker(callback), mError(false), mFileLocation(inNewFile), returnString(""), mTitle(""), mArtist(""), mAlbum(""), mLength(""), mCamelotWheelKey(""), mChordNames(""){};
 
     // Do the stuff here
     void AudioAnalyzer::Execute()

@@ -34,7 +34,7 @@ if (WIN32)
             REQUIRED
             )
             SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
-
+            target_link_libraries(${PROJECT_NAME} wsock32 ws2_32)
 endif (WIN32)
 
 # Linux Libraries
@@ -58,11 +58,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
 target_link_libraries(${PROJECT_NAME} ${SUPERPOWERED})
 
-# Library required by Supoerpowered SDK on windows
-if (WIN32)
-    target_link_libraries(${PROJECT_NAME} wsock32 ws2_32)
-endif(WIN32)
-
 # Include N-API wrappers
 execute_process(COMMAND node -p "require('node-addon-api').include"
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -71,6 +66,6 @@ execute_process(COMMAND node -p "require('node-addon-api').include"
 string(REPLACE "\n" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${NODE_ADDON_API_DIR})
-add_definitions(-DNAPI_VERSION=3)
+add_definitions(-DNAPI_VERSION=6)
 
 message(OUTPUT_VARIABLE)

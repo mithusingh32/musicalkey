@@ -19,7 +19,6 @@ lib/*
 
 #  Lock and log files
 *-lock.json
-*.lock
 *.log
 
 # Cache
