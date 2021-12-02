@@ -1,41 +1,29 @@
-# Build and dist directories
-build/
-build/*
-dist/
-dist/*
-release/
-release/*
-
-# Node modules
-node_modules/
-node_modules/*
-
-# Libraries 
-superpowered/
-superpowered/*
-lib/
-lib/*
-
-
-#  Lock and log files
-*-lock.json
+# Logs
+logs
 *.log
 
-# Cache
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
 .eslintcache
 
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
 
-# Prod files 
-*.prod.js.*
-*.prod.js
-*.prod.js.map
+# OSX
+.DS_Store
 
-# Native node modules
-*.node
-
-# database 
-audio-database/
-
-#dll files
+release/app/dist
+release/build
 .erb/dll
-.erb/dll/*
+
+.idea
+npm-debug.log.*
+*.css.d.ts
+*.sass.d.ts
+*.scss.d.ts
