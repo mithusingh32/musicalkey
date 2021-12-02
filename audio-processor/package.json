@@ -1,0 +1,12 @@
+{
+  "name": "audio-processor",
+  "version": "0.0.1",
+  "description": "C++ Backend for Musical Key. Processes audio and send front-end a json objeect with meta-data. ",
+  "main": "index.js",
+  "author": "Sukhmeet Khalar",
+  "scripts": {
+    "build": "cmake-js compile",
+    "postbuild": "node post-build.js"
+  },
+  "license": "MIT"
+}
