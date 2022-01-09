@@ -17,6 +17,12 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+// Import ipc functions
+require('./ipc/ipc');
+
+// Import database
+require('./databases/local.database');
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -77,7 +83,10 @@ const createWindow = async () => {
     height: 728,
     icon: getAssetPath('icon.png'),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+      nodeIntegrationInWorker: true,
+      // preload: path.join(__dirname, 'preload.js'),
     },
   });
 

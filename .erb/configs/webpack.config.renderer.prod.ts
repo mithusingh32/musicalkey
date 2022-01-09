@@ -25,12 +25,12 @@ const devtoolsConfig =
       }
     : {};
 
-export default merge(baseConfig, {
+const configuration: webpack.Configuration = {
   ...devtoolsConfig,
 
   mode: 'production',
 
-  target: ['web', 'electron-renderer'],
+  target: 'electron-renderer',
 
   entry: [
     'core-js',
@@ -42,9 +42,6 @@ export default merge(baseConfig, {
     path: webpackPaths.distRendererPath,
     publicPath: './',
     filename: 'renderer.js',
-    library: {
-      type: 'umd',
-    },
   },
 
   module: {
@@ -62,14 +59,6 @@ export default merge(baseConfig, {
             },
           },
           'sass-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [require('tailwindcss'), require('autoprefixer')],
-              },
-            },
-          },
         ],
         include: /\.module\.s?(c|a)ss$/,
       },
@@ -90,26 +79,15 @@ export default merge(baseConfig, {
         ],
         exclude: /\.module\.s?(c|a)ss$/,
       },
-      //Font Loader
+      // Fonts
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },
-      // SVG Font
+      // Images
       {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            mimetype: 'image/svg+xml',
-          },
-        },
-      },
-      // Common Image Formats
-      {
-        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },
@@ -124,6 +102,10 @@ export default merge(baseConfig, {
     ],
   },
 
+  node: {
+    __dirname: false,
+    __filename: false
+  },
   plugins: [
     /**
      * Create global constants which can be configured at compile time.
@@ -159,4 +141,6 @@ export default merge(baseConfig, {
       isDevelopment: process.env.NODE_ENV !== 'production',
     }),
   ],
-});
+};
+
+export default merge(baseConfig, configuration);

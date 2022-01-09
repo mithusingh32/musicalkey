@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -DNDEBUG -shared -Wl,-soname,audio-processor.node -o Release/audio-processor.node CMakeFiles/audio-processor.dir/src/AudioAnalyzer.cpp.o CMakeFiles/audio-processor.dir/src/AudioAnalyzerAddon.cpp.o  /home/skhalar/git/SuperpoweredSDK/Superpowered/libSuperpoweredLinuxX86_64.a 

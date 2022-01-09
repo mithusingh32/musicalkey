@@ -1,52 +1,16 @@
-import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
-import './App.css';
-import '../../assets/styles/__app.global.scss';
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import store from './store/store';
+import * as Views from './views';
+import { Home } from './views';
 
-const Hello = () => {
+const App: React.FC = () => {
   return (
-    <div>
-      <div className="Hello">
-        <div className="w-24 h-24 text-4xl bg-red-500">Hello</div>
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
+    <Provider store={store}>
+      <Home />
+    </Provider>
   );
 };
 
-export default function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/" component={Hello} />
-      </Switch>
-    </Router>
-  );
-}
+export default App;

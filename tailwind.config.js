@@ -1,5 +1,7 @@
 module.exports = {
-  theme: {},
-  variants: {},
+  content: ['./src/renderer/**/*.tsx'],
+  theme: {
+    extend: {},
+  },
   plugins: [],
 };

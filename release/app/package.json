@@ -1,6 +1,6 @@
 {
   "name": "electron-react-boilerplate",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "./dist/main/main.js",
   "author": {
@@ -12,6 +12,11 @@
     "electron-rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
     "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts",
     "postinstall": "npm run electron-rebuild && npm run link-modules"
+  },
+  "dependencies": {
+    "pouchdb": "^7.2.2",
+    "pouchdb-debug": "^7.2.1",
+    "pouchdb-find": "^7.2.2"
   },
   "license": "MIT"
 }

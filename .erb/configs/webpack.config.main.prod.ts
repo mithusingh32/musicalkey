@@ -22,7 +22,7 @@ const devtoolsConfig =
       }
     : {};
 
-export default merge(baseConfig, {
+const configuration: webpack.Configuration = {
   ...devtoolsConfig,
 
   mode: 'production',
@@ -31,7 +31,7 @@ export default merge(baseConfig, {
 
   entry: {
     main: path.join(webpackPaths.srcMainPath, 'main.ts'),
-    preload: path.join(webpackPaths.srcMainPath, 'preload.js'),
+    // preload: path.join(webpackPaths.srcMainPath, 'preload.js'),
   },
 
   output: {
@@ -77,4 +77,6 @@ export default merge(baseConfig, {
     __dirname: false,
     __filename: false,
   },
-});
+};
+
+export default merge(baseConfig, configuration);

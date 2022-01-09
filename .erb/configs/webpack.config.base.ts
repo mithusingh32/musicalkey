@@ -6,7 +6,7 @@ import webpack from 'webpack';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
 
-export default {
+const configuration: webpack.Configuration = {
   externals: [...Object.keys(externals || {})],
 
   stats: 'errors-only',
@@ -41,6 +41,10 @@ export default {
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [webpackPaths.srcPath, 'node_modules'],
+    fallback: {
+      "path": require.resolve("path-browserify"),
+      fs: 'empty',
+    }
   },
 
   plugins: [
@@ -49,3 +53,5 @@ export default {
     }),
   ],
 };
+
+export default configuration;
