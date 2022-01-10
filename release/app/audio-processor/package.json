@@ -8,5 +8,9 @@
     "build": "cmake-js compile",
     "postbuild": "node post-build.js"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cmake-js": "~6.50",
+    "node-addon-api": "*"
+  }
 }

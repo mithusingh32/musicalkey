@@ -86,10 +86,14 @@ const configuration: webpack.Configuration = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [require('tailwindcss'), require('autoprefixer')],
+                plugins: [
+                  require('tailwindcss/nesting'),
+                  require('tailwindcss'),
+                  require('autoprefixer'),
+                ],
               },
             },
-          }
+          },
         ],
         exclude: /\.module\.s?(c|a)ss$/,
       },
@@ -105,10 +109,10 @@ const configuration: webpack.Configuration = {
       },
     ],
   },
-  resolve:{
+  resolve: {
     fallback: {
-      fs: false
-    }
+      fs: false,
+    },
   },
   plugins: [
     ...(requiredByDLLConfig

@@ -72,7 +72,11 @@ const configuration: webpack.Configuration = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [require('tailwindcss'), require('autoprefixer')],
+                plugins: [
+                  require('tailwindcss/nesting'),
+                  require('tailwindcss'),
+                  require('autoprefixer'),
+                ],
               },
             },
           },
@@ -104,7 +108,7 @@ const configuration: webpack.Configuration = {
 
   node: {
     __dirname: false,
-    __filename: false
+    __filename: false,
   },
   plugins: [
     /**
