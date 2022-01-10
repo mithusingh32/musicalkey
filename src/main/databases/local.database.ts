@@ -1,4 +1,5 @@
-import { fromString } from 'uuidv4';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { v5 as uuidv5 } from 'uuid';
 import { AudioData } from '../../renderer/interfaces/audio.interface';
 import makeData from '../../utils/makeDBData';
 
@@ -32,7 +33,8 @@ if (
 
 // Create new entry or update existing entry based on UUID
 export const putIntoDatabse = (inAudioData: AudioData) => {
-  const uuid = fromString(inAudioData.location);
+  const NAMESPACE = '1cef0f4a-d467-43b1-b466-811dc6cf6091';
+  const uuid = uuidv5(inAudioData.title, NAMESPACE);
   db.put({
     _id: uuid,
     ...inAudioData,
