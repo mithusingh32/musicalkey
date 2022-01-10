@@ -1,12 +1,12 @@
 {
-  "name": "electron-react-boilerplate",
-  "version": "4.5.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "name": "musical-key",
+  "version": "0.0.1",
+  "description": "Electron application that processes audio and provides user meta data such as key of the song, bpm, etc",
   "main": "./dist/main/main.js",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://github.com/electron-react-boilerplate"
+    "name": "Sukhmeet Khalar",
+    "email": "mithusingh32@gmail.com",
+    "url": "https://github.com/mithusingh32/musicalkey"
   },
   "scripts": {
     "electron-rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
