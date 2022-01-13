@@ -8,7 +8,7 @@ import Waveform from './waveform/waveform.component';
 
 const Footer = () => {
   // TODO Move this to the correct component (not sure which it is right now).
-  ipcRenderer.on('process', (event, arg) => {
+  ipcRenderer.on('getAudioData', (event, arg) => {
     console.log(arg);
   });
   const [audioFile, setAudioFile] = React.useState('');
