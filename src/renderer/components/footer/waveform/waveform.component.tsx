@@ -35,7 +35,7 @@ const Waveform = ({
     });
 
     if (wavesurfer.current) {
-      wavesurfer.current.load(inAudioFilePath);
+      wavesurfer.current.load(`file://${inAudioFilePath}`);
       wavesurfer.current.on('seek', () => {
         wavesurfer.current.play(
           wavesurfer.current.getCurrentTime(),
