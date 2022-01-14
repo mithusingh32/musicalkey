@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron';
 import * as React from 'react';
 import * as RRedux from 'react-redux';
 import WaveSurfer from 'wavesurfer.js';
@@ -17,6 +18,7 @@ const Waveform = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const wavesurfer = React.useRef<any>(null);
   const dispatch = RRedux.useDispatch();
+  const [loadingError, setLoadingError] = React.useState(false);
   const isPlaying = RRedux.useSelector((state: RootState) => {
     return state.nowPlaying.isPlaying;
   });
@@ -33,9 +35,15 @@ const Waveform = ({
       responsive: true,
       normalize: true,
     });
+    const fileBlob = ipcRenderer.sendSync('getFileObject', inAudioFilePath);
+    if (fileBlob === 'err') setLoadingError(true);
 
-    if (wavesurfer.current) {
-      wavesurfer.current.load(`file://${inAudioFilePath}`);
+    if (wavesurfer.current && fileBlob !== 'err') {
+      // TODO Make this more effecient
+      // We need to creaet a blob from the Uint8Array to play audio because
+      // the renderer process cannot access the local filesystem
+      const blob = new Blob([fileBlob], { type: 'audio/mp3' });
+      wavesurfer.current.loadBlob(blob);
       wavesurfer.current.on('seek', () => {
         wavesurfer.current.play(
           wavesurfer.current.getCurrentTime(),
@@ -74,6 +82,10 @@ const Waveform = ({
     }
   }, [isPlaying, dispatch]);
 
+  if (loadingError)
+    return (
+      <div className="w-full text-center bg-blue-200">Error Loading File</div>
+    );
   return <div className="w-full text-center bg-blue-200" ref={wavesurfer} />;
 };
 

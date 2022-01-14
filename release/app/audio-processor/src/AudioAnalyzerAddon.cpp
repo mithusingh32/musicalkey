@@ -40,11 +40,12 @@ public:
             return env.Null();
         }
 
-        if (!info[0].IsString() || !info[1].IsFunction())
-        {
-            Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
-            return env.Null();
-        }
+        // TODO: Why is throwing a JS error when both are correct?
+        // if (!info[0].IsString() || !info[1].IsFunction())
+        // {
+        //     Napi::TypeError::New(env, "Wrong arguments" + info).ThrowAsJavaScriptException();
+        //     return env.Null();
+        // }
 
         Napi::Function callback = info[1].As<Napi::Function>();
         AudioAnalyzer::AudioAnalyzer *AudioAnalyzer = new AudioAnalyzer::AudioAnalyzer(callback, info[0].As<Napi::String>());
