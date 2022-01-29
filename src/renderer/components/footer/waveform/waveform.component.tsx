@@ -11,9 +11,11 @@ import { RootState } from '../../../store/store';
 const Waveform = ({
   inAudioFilePath,
   setCurrentTime,
+  height,
 }: {
   inAudioFilePath: string;
   setCurrentTime: (inTime: { totalTime: number; currentTime: number }) => void;
+  height: number | undefined;
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const wavesurfer = React.useRef<any>(null);
@@ -27,7 +29,7 @@ const Waveform = ({
   React.useEffect(() => {
     wavesurfer.current = WaveSurfer.create({
       container: wavesurfer.current,
-      fillParent: true,
+      height,
       hideScrollbar: true,
       waveColor: 'violet',
       progressColor: 'purple',
@@ -74,7 +76,8 @@ const Waveform = ({
         });
       }
     });
-  }, [inAudioFilePath, setCurrentTime, dispatch]);
+  }, [inAudioFilePath, setCurrentTime, dispatch, height]);
+
   React.useEffect(() => {
     if (wavesurfer && wavesurfer.current) {
       if (isPlaying) wavesurfer.current.play();
