@@ -6,7 +6,7 @@ import Footer from '../components/footer/footer.component';
 import AudioCollection from '../components/audio-collection/audio-collection.component';
 import { fetchAudioData } from '../store/audio-data/fetch-data.slice';
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const dispatch = useDispatch();
   dispatch(fetchAudioData());
   return (
