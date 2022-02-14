@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const AudioBackButton = () => {
+const AudioBackButton: React.FC = () => {
   return (
     <svg
       className="w-20 h-20 my-auto"

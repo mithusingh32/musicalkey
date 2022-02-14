@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const AudioPlayButton = ({
+const AudioPlayButton: React.FC<{ togglePlayPause: () => void }> = ({
   togglePlayPause,
 }: {
   togglePlayPause: () => void;

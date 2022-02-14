@@ -31,4 +31,4 @@ npm-debug.log.*
 # Ignore databse
 audio-database
 audio-processor.node
-release/app/audio-processor/build/
+audio-processor/build/

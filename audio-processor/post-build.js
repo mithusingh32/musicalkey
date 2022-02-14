@@ -5,7 +5,7 @@ const nodeAddonPath = path.join(
   __dirname,
   '/build/Release/audio-processor.node'
 );
-const destPath = path.join(__dirname, '/../audio-processor.node');
+const destPath = path.join(__dirname, '/../release/app/audio-processor.node');
 
 // TODO Delete if old file exists
 // Check if file exists in build folder

@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-const ErrorModal = ({
+const ErrorModal: React.FC<{
+  errorTitle?: string;
+  errorMessage?: string;
+  action?: { actionText: string; action: () => void };
+}> = ({
   errorTitle,
   errorMessage,
   action,

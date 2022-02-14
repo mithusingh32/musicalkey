@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { NowPlaying } from '../../../store/now-playing/now-playing.slice';
 
-const NowPlayingInfo = ({
+const NowPlayingInfo: React.FC<{
+  currentAudioPlayingTime: {
+    totalTime: number;
+    currentTime: number;
+  };
+  nowPlaying: NowPlaying;
+}> = ({
   currentAudioPlayingTime,
   nowPlaying,
 }: {
