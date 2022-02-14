@@ -125,13 +125,14 @@ const Table = ({
     );
 
   return (
-    <div className="w-full ">
-      <div {...getTableProps()} className="table">
+    <div className="flex-col w-full">
+      <div {...getTableProps()} className="table overflow-scroll">
         <div
           className="fixed z-50"
           style={{
             display: 'block',
             width: headerWidth === undefined ? '100%' : headerWidth,
+            paddingBottom: '100px',
           }}
         >
           {headerGroups.map((headerGroup) => (
@@ -150,13 +151,20 @@ const Table = ({
           ))}
         </div>
 
-        <div {...getTableBodyProps()} className="pt-10">
+        <div
+          style={{
+            height: '40px',
+          }}
+        />
+
+        <div {...getTableBodyProps()}>
           {rows.map((row, index) => {
             prepareRow(row);
             return (
               <div
                 {...row.getRowProps()}
                 className={`
+                flex
               hover:bg-gray-200
               cursor-default ${
                 index % 2 === 0 ? 'bg-gray-300' : 'bg-gray-400'

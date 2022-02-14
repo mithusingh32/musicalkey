@@ -4,6 +4,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useWindowDimensions from '../../hooks/useWindowSize.hook';
 import { camelotChordNamesAndSemitones } from '../../../constants';
 import useSize from '../../hooks/useSize.hook';
 import { AudioData } from '../../interfaces/audio.interface';
@@ -31,6 +32,9 @@ const AudioCollection = () => {
   const dispatch = useDispatch();
   const tableRef = React.useRef(null);
   const size = useSize(tableRef); // Pass this to the Table Component to resize the header
+
+  // Get hiegh of window to set table's hieght properly
+  const { height } = useWindowDimensions();
 
   React.useEffect(() => {
     setIsLoading(audioData.isLoaded);
@@ -157,7 +161,7 @@ const AudioCollection = () => {
   // TODO Fix  scroll bars and scrolling w/ header. Header is not scrolling at all
   return (
     <div
-      className="w-screen pb-32 overflow-y-scroll bg-gray"
+      className="w-screen pb-32 bg-gray"
       style={{ paddingLeft: '18em' }}
       ref={tableRef}
     >
@@ -186,7 +190,12 @@ const AudioCollection = () => {
         <></>
       )}
       {isLoading === 'loaded' ? (
-        <div className="overflow-auto">
+        <div
+          className="overflow-auto"
+          style={{
+            height: height ? `${height - 112}px` : '100px',
+          }}
+        >
           <Table
             data={data}
             tableSize={size}

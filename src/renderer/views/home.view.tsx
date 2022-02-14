@@ -15,6 +15,11 @@ export const Home: React.FC = () => {
         <Sidebar />
         <AudioCollection />
       </div>
+      <div
+        style={{
+          height: '112px',
+        }}
+      />
       <Footer />
     </BaseLayout>
   );

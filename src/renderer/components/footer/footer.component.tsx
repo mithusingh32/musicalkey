@@ -1,7 +1,6 @@
 import { ipcRenderer } from 'electron';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import useSize from 'renderer/hooks/useSize.hook';
 import { RootState } from '../../store/store';
 import AudioControl from './audio-control/audio-control.component';
 import NowPlayingInfo from './now-playing-info/now-playing-info.component';
@@ -9,8 +8,8 @@ import Waveform from './waveform/waveform.component';
 
 const Footer = () => {
   // TODO Move this to the correct component (not sure which it is right now).
-  ipcRenderer.on('getAudioData', (event, arg) => {
-    // console.log(arg);
+  ipcRenderer.on('getAudioData', (_event, arg) => {
+    console.log(arg);
   });
 
   const [audioFile, setAudioFile] = React.useState('');
