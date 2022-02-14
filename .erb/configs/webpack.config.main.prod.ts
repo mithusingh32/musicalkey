@@ -28,7 +28,14 @@ const configuration: webpack.Configuration = {
   mode: 'production',
 
   target: 'electron-main',
-
+  module: {
+    rules: [
+      {
+        test: /\.node$/,
+        loader: "node-loader",
+      },
+    ],
+  },
   entry: {
     main: path.join(webpackPaths.srcMainPath, 'main.ts'),
     // preload: path.join(webpackPaths.srcMainPath, 'preload.js'),
@@ -38,6 +45,7 @@ const configuration: webpack.Configuration = {
     path: webpackPaths.distMainPath,
     filename: '[name].js',
   },
+
 
   optimization: {
     minimizer: [

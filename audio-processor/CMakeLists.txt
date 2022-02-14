@@ -35,18 +35,25 @@ if (WIN32)
             )
             SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
             target_link_libraries(${PROJECT_NAME} wsock32 ws2_32)
-endif (WIN32)
-
-# Linux Libraries
-if (UNIX)
+# Apple Libraries
+elseif (APPLE)
     SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
     find_library(
         SUPERPOWERED
-        NAMES "SuperpoweredLinuxX86_64"
-        PATHS $ENV{SUPERPOWERED}
+        NAMES "libSuperpoweredAudioOSX.a"
+        PATHS $ENV{SUPERPOWERED}/libSuperpoweredAudio.xcframework/macos-arm64_x86_64
         REQUIRED
     )
-endif (UNIX)
+    # Linux Libraries
+elseif (UNIX)
+  SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+  find_library(
+    SUPERPOWERED
+    NAMES "SuperpoweredLinuxX86_64"
+    PATHS $ENV{SUPERPOWERED}
+    REQUIRED
+  )
+endif ()
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 

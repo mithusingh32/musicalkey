@@ -1,0 +1,3 @@
+/Users/sukhmeetkhalar/git/musicalkey/audio-processor/build/CMakeFiles/audio-processor.dir
+/Users/sukhmeetkhalar/git/musicalkey/audio-processor/build/CMakeFiles/edit_cache.dir
+/Users/sukhmeetkhalar/git/musicalkey/audio-processor/build/CMakeFiles/rebuild_cache.dir

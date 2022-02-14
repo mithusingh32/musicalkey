@@ -14,14 +14,7 @@ public:
     AudioAnalyzerAddon(Napi::Env env, Napi::Object exports)
     {
         Superpowered::Initialize(
-            "ExampleLicenseKey-WillExpire-OnNextUpdate",
-            true,  // enableAudioAnalysis (using SuperpoweredAnalyzer, SuperpoweredLiveAnalyzer, SuperpoweredWaveform or SuperpoweredBandpassFilterbank)
-            false, // enableFFTAndFrequencyDomain (using SuperpoweredFrequencyDomain, SuperpoweredFFTComplex, SuperpoweredFFTReal or SuperpoweredPolarFFT)
-            false, // enableAudioTimeStretching (using SuperpoweredTimeStretching)
-            false, // enableAudioEffects (using any SuperpoweredFX class)
-            true,  // enableAudioPlayerAndDecoder (using SuperpoweredAdvancedAudioPlayer or SuperpoweredDecoder)
-            false, // enableCryptographics (using Superpowered::RSAPublicKey, Superpowered::RSAPrivateKey, Superpowered::hasher or Superpowered::AES)
-            false  // enableNetworking (using Superpowered::httpRequest)
+            "ExampleLicenseKey-WillExpire-OnNextUpdate"
         );
             // In the constructor we declare the functions the add-on makes available
     // to JavaScript.
