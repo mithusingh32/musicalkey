@@ -14,8 +14,9 @@
     "postinstall": "npm run electron-rebuild && npm run link-modules"
   },
   "dependencies": {
-    "leveldown": "^6.1.0",
-    "pouchdb-adapter-leveldb": "^7.2.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "leveldown": "^6.1.0"
+  }
 }
