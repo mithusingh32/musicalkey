@@ -29,6 +29,9 @@ npm-debug.log.*
 *.scss.d.ts
 
 # Ignore databse
-audio-database
+audiodatabase*
+audiodatabase*/*
+
+# Ignore audio processor binaries
 audio-processor.node
 audio-processor/build/
