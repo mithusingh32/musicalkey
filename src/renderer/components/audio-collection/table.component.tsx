@@ -12,7 +12,7 @@ import {
 import { AudioData } from '../../interfaces/audio.interface';
 
 export interface TableData {
-  [index: number]: AudioData;
+  [index: number]: { id: string; key: string; doc: AudioData };
 }
 
 const Table = ({
@@ -42,33 +42,33 @@ const Table = ({
       {
         id: 'error',
         Header: 'Error',
-        accessor: (originalRow: any) => originalRow.error,
+        accessor: (originalRow: any) => originalRow.doc.error,
       },
       {
         id: 'location',
         Header: 'Location',
-        accessor: (originalRow: any) => originalRow.location,
+        accessor: (originalRow: any) => originalRow.doc.location,
       },
       {
         id: 'artist',
         Header: 'Artist',
-        accessor: (originalRow: any) => originalRow.artist,
+        accessor: (originalRow: any) => originalRow.doc.artist,
       },
       {
         id: 'title',
         Header: 'Title',
-        accessor: (originalRow: any) => originalRow.title,
+        accessor: (originalRow: any) => originalRow.doc.title,
         minWidth: 200,
       },
       {
         id: 'album',
         Header: 'Album',
-        accessor: (originalRow: any) => originalRow.album,
+        accessor: (originalRow: any) => originalRow.doc.album,
       },
       {
         id: 'length',
         Header: 'length',
-        accessor: (originalRow: any) => originalRow.length,
+        accessor: (originalRow: any) => originalRow.doc.length,
         minWidth: 50,
         maxWidth: 80,
       },
@@ -76,19 +76,19 @@ const Table = ({
         id: 'camelotWheelKey',
         Header: 'Key',
         accessor: (originalRow: any) =>
-          `${originalRow.camelotWheelKey}-${originalRow.chordName}`,
+          `${originalRow.doc.camelotWheelKey}-${originalRow.doc.chordName}`,
         minWidth: 50,
         maxWidth: 80,
       },
       {
         id: 'chordName',
         Header: 'chordName',
-        accessor: (originalRow: any) => originalRow.chordName,
+        accessor: (originalRow: any) => originalRow.doc.chordName,
       },
       {
         id: 'bpm',
         Header: 'BPM',
-        accessor: (originalRow: any) => originalRow.bpm,
+        accessor: (originalRow: any) => originalRow.doc.bpm,
         minWidth: 50,
         maxWidth: 80,
       },
@@ -132,6 +132,7 @@ const Table = ({
           style={{
             display: 'block',
             width: headerWidth === undefined ? '100%' : headerWidth,
+            paddingBottom: '100px',
           }}
         >
           {headerGroups.map((headerGroup) => (

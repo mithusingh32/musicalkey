@@ -36,12 +36,9 @@ const NowPlayingInfo: React.FC<{
   };
 
   return (
-    <div
-      className="flex flex-col justify-center mx-5 w-36"
-      style={{ minWidth: '90px' }}
-    >
-      <div className="mx-auto text-xl font-bold">
-        {nowPlaying.audioTrack?.camelotWheelKey}
+    <div className="flex flex-col justify-center mx-5 w-36">
+      <div className="mx-auto text-2xl font-bold">
+        Key: {nowPlaying.audioTrack?.camelotWheelKey}
       </div>
       <div className="mx-auto text-xl font-bold">
         {convertNumToTime(currentAudioPlayingTime.currentTime)}/

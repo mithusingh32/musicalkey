@@ -20,6 +20,9 @@ import { resolveHtmlPath } from './util';
 // Import ipc functions
 require('./ipc/ipc');
 
+// Import database
+require('./databases/local.database');
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -45,7 +48,7 @@ if (isDevelopment) {
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+  const extensions = ['REACT_DEVELOPER_TOOLS'];
 
   return installer
     .default(

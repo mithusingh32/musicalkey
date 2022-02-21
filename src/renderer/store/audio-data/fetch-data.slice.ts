@@ -20,7 +20,7 @@ export const fetchAudioData = createAsyncThunk(
     const data = await ipcRenderer
       .invoke('getAllDocs')
       .then((result) => {
-        return result;
+        return result.rows;
       })
       .catch((e) => e);
     return data;

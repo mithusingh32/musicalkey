@@ -17,7 +17,7 @@ const newAudioData = (index: number) => {
   let playlist;
   if (index % 5 === 0) playlist = ['english', 'punjabi'];
   return {
-    id,
+    _id: id,
     key: id,
     error: '',
     location: namor.generate({ words: 1 }),

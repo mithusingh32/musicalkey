@@ -1,75 +1,49 @@
-import {
-  AudioCollection,
-  AudioDocType,
-  MyDatabase,
-} from 'main/types/database.type';
-import {
-  addPouchPlugin,
-  createRxDatabase,
-  getRxStoragePouch,
-  PouchSettings,
-  PouchStorageInternals,
-  RxCollection,
-  RxDatabase,
-  RxJsonSchema,
-} from 'rxdb';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { v5 as uuidv5 } from 'uuid';
+import { AudioData } from '../../renderer/interfaces/audio.interface';
+import makeData from '../../utils/makeDBData';
 
-addPouchPlugin(require('pouchdb-adapter-leveldb'));
-const leveldown = require('leveldown');
+// Load PouchDB
+const PouchDB = require('pouchdb');
 
-const audioSchema: RxJsonSchema<AudioDocType> = {
-  keyCompression: true, // set this to true, to enable the keyCompression
-  version: 0,
-  title: 'human schema with composite primary',
-  primaryKey: 'id',
-  type: 'object',
-  properties: {
-    id: { type: 'string' },
-    key: { type: 'string' },
-    error: { type: 'string' },
-    location: { type: 'string' },
-    title: { type: 'string' },
-    artist: { type: 'string' },
-    album: { type: 'string' },
-    length: { type: 'string' },
-    camelotWheelKey: { type: 'string' },
-    chordName: { type: 'string' },
-    bpm: { type: 'string' },
-    playlist: {
-      type: 'array',
-      items: {
-        type: 'string',
-      },
-    },
-  },
-  required: ['id', 'key', 'location', 'camelotWheelKey', 'chordName'],
+// Load db plugins
+const pouchdbDebug = require('pouchdb-debug');
+const pouchdbFind = require('pouchdb-find');
+
+PouchDB.plugin(pouchdbDebug).plugin(pouchdbFind);
+
+const db = new PouchDB('audio-database');
+
+if (
+  process.env.NODE_ENV === 'development' ||
+  process.env.DEBUG_PROD === 'true'
+) {
+  PouchDB.debug.enable('*');
+  db.info()
+    .then((dbInfo: any) => {
+      if (dbInfo.doc_count === 0) {
+        makeData(10).forEach((element: any) => {
+          db.put(element);
+        });
+      }
+      return null;
+    })
+    .catch(() => {});
+}
+
+// Create new entry or update existing entry based on UUID
+export const putIntoDatabse = (inAudioData: AudioData) => {
+  const NAMESPACE = '1cef0f4a-d467-43b1-b466-811dc6cf6091';
+  const uuid = uuidv5(inAudioData.title, NAMESPACE);
+  db.put({
+    _id: uuid,
+    ...inAudioData,
+  }).catch((err: any) => err);
 };
 
-let database: Promise<any>;
-// create a database
-const createDB = async () => {
-  // add the pouchdb indexeddb adapter
-  console.log('Creating database');
-  const db = await createRxDatabase<AudioCollection>({
-    // the name of the database
-    name: 'audiodatabase',
-    // use pouchdb with the indexeddb-adapter as storage engine.
-    storage: getRxStoragePouch(leveldown),
+// Retreives all the entries in the databse
+export const getAllAudioDocs = () => {
+  return db.allDocs({
+    include_docs: true,
   });
-
-  console.log('Creating collections');
-  await db.addCollections({
-    audiodata: {
-      schema: audioSchema,
-    },
-  });
-
-  return db;
 };
-
-const getDB = () => {
-  if (!database) database = createDB();
-  return database;
-};
-
-export default getDB;
