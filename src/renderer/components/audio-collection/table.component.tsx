@@ -132,7 +132,6 @@ const Table = ({
           style={{
             display: 'block',
             width: headerWidth === undefined ? '100%' : headerWidth,
-            paddingBottom: '100px',
           }}
         >
           {headerGroups.map((headerGroup) => (
