@@ -30,18 +30,17 @@ const configuration: webpack.Configuration = {
 
   mode: 'production',
 
-  target: 'electron-renderer',
+  target: ['electron-renderer'],
 
-  entry: [
-    'core-js',
-    'regenerator-runtime/runtime',
-    path.join(webpackPaths.srcRendererPath, 'index.tsx'),
-  ],
+  entry: [path.join(webpackPaths.srcRendererPath, 'index.tsx')],
 
   output: {
     path: webpackPaths.distRendererPath,
     publicPath: './',
     filename: 'renderer.js',
+    library: {
+      type: 'umd',
+    },
   },
 
   module: {

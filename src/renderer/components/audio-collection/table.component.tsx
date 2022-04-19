@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 import {
